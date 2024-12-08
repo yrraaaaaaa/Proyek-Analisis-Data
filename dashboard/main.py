@@ -7,10 +7,10 @@ sns.set(style='dark')
 
 # Default paths for datasets
 default_paths = {
-    "customers": "datasets/olist_customers_dataset.csv",
-    "orders": "datasets/olist_orders_dataset.csv",
-    "products": "datasets/olist_products_dataset.csv",
-    "order_items": "datasets/olist_order_items_dataset.csv",
+    "customers": "olist_customers_dataset.csv",
+    "orders": "olist_orders_dataset.csv",
+    "products": "olist_products_dataset.csv",
+    "order_items": "olist_order_items_dataset.csv",
 }
 
 try:
