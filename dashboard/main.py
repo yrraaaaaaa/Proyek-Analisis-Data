@@ -83,10 +83,23 @@ try:
     st.table(top_categories_df)
 
     # Question 2: Number of orders per month and trend
-    st.markdown("### 2. Jumlah Pesanan per Bulan")
+    st.markdown("### 2. Jumlah Pesanan per Bulan (Visual Style Mirip Gambar)")
 
+    # Hitung jumlah pesanan per bulan
     orders_per_month = filtered_data.groupby('Month').size()
-    st.line_chart(orders_per_month)
+
+    # Plot menggunakan Matplotlib
+    plt.figure(figsize=(12, 6))
+    orders_per_month.plot(kind="line", marker='o', linestyle='--', color='b')
+    plt.title("Tren Jumlah Pesanan per Bulan", fontsize=16)
+    plt.xlabel("Bulan-Tahun", fontsize=12)
+    plt.ylabel("Jumlah Pesanan", fontsize=12)
+    plt.xticks(rotation=45)
+    plt.grid(True)
+    plt.tight_layout()
+
+    # Tampilkan grafik di Streamlit
+    st.pyplot(plt)
 
     # Trend analysis
     st.markdown("#### Analisis Tren")
