@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 import streamlit as st
 
 # Default paths for datasets
@@ -46,32 +47,40 @@ try:
     filtered_data = all_df[(all_df["order_approved_at"] >= str(start_date)) &
                            (all_df["order_approved_at"] <= str(end_date))]
 
-    # Question 1: Top 10 most purchased products (Descending)
-    st.markdown("### 1. Produk yang Paling Sering Dibeli (Descending)")
+    # Question 1: Top 10 most purchased product categories (Descending)
+    st.markdown("### 1. Kategori Produk yang Paling Sering Dibeli (Descending)")
 
-    top_products = (
-        filtered_data['product_id']
+    # Hitung jumlah pembelian berdasarkan kategori produk
+    top_categories = (
+        filtered_data['product_category_name']
         .value_counts()
         .head(10)
         .sort_values(ascending=False)
     )
 
-    top_products_df = pd.DataFrame({
-        "Product ID": top_products.index,
-        "Count": top_products.values
+    # Konversi ke DataFrame untuk visualisasi
+    top_categories_df = pd.DataFrame({
+        "Kategori Produk": top_categories.index,
+        "Jumlah Pembelian": top_categories.values
     })
 
-    # Create vertical bar chart with Matplotlib
+    # Visualisasi dengan Matplotlib
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.bar(top_products_df["Product ID"], top_products_df["Count"], color='skyblue')
-    ax.set_title("Top 10 Produk Paling Sering Dibeli (Descending)", fontsize=16)
-    ax.set_xlabel("Product ID", fontsize=12)
-    ax.set_ylabel("Count", fontsize=12)
+    sns.barplot(
+        x=top_categories_df["Kategori Produk"],
+        y=top_categories_df["Jumlah Pembelian"],
+        palette="viridis",
+        ax=ax
+    )
+    ax.set_title("Top 10 Kategori Produk yang Sering Dibeli", fontsize=16)
+    ax.set_xlabel("Kategori Produk", fontsize=12)
+    ax.set_ylabel("Jumlah Pembelian", fontsize=12)
     ax.tick_params(axis='x', rotation=45)
 
+    # Tampilkan grafik dan tabel
     st.pyplot(fig)
-    st.write("**Top 10 Produk Paling Sering Dibeli (Descending):**")
-    st.table(top_products_df)
+    st.write("**Top 10 Kategori Produk yang Sering Dibeli:**")
+    st.table(top_categories_df)
 
     # Question 2: Number of orders per month and trend
     st.markdown("### 2. Jumlah Pesanan per Bulan")
