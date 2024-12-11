@@ -83,7 +83,7 @@ try:
     st.table(top_categories_df)
 
     # Question 2: Number of orders per month and trend
-    st.markdown("### 2. Jumlah Pesanan per Bulan (Visual Style Mirip Gambar)")
+    st.markdown("### 2. Jumlah Pesanan per Bulan ")
 
     # Hitung jumlah pesanan per bulan
     orders_per_month = filtered_data.groupby('Month').size()
